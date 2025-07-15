@@ -61,38 +61,59 @@ There are two ways to use this decorator.
 You can either invoke it with no arguments, or you can pass it the registered name of the service.
 When no arguments are passed, the service is loaded based on the name of the decorated property.
 You can load the shopping cart service with no arguments like below.
+Once injected into a component, a service can also be used in the template.
+Note `cart` being used below to get data from the cart.
 
-```javascript {data-filename=app/components/cart-contents.js}
+```gjs {data-filename=app/components/cart-contents.gjs}
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 
 export default class CartContentsComponent extends Component {
   // Will load the service defined in: app/services/shopping-cart.js
   @service shoppingCart;
+
+  <template>
+    <ul>
+      {{#each this.shoppingCart.items as |item|}}
+        <li>
+          {{item.name}}
+        </li>
+      {{/each}}
+    </ul>
+  </template>
 }
 ```
 
 This injects the shopping cart service into the component and makes it available as the `shoppingCart` property.
 
 Another way to inject a service is to provide the name of the service as an argument to the decorator.
+This injects the shopping cart service into the component and makes it available as the `cart` property.
 
-```javascript {data-filename=app/components/cart-contents.js}
+```gjs {data-filename=app/components/cart-contents.gjs}
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 
 export default class CartContentsComponent extends Component {
   // Will load the service defined in: app/services/shopping-cart.js
   @service('shopping-cart') cart;
+
+  <template>
+    <ul>
+      {{#each this.cart.items as |item|}}
+        <li>
+          {{item.name}}
+        </li>
+      {{/each}}
+    </ul>
+  </template>
 }
 ```
-
-This injects the shopping cart service into the component and makes it available as the `cart` property.
 
 Sometimes a service may or may not exist, like when an initializer conditionally registers a service.
 Since normal injection will throw an error if the service doesn't exist,
 you must look up the service using Ember's [`getOwner`](https://api.emberjs.com/ember/release/classes/@ember%2Fapplication/methods/getOwner?anchor=getOwner) instead.
 
-```javascript {data-filename=app/components/cart-contents.js}
+```gjs {data-filename=app/components/cart-contents.gjs}
 import Component from '@glimmer/component';
 import { getOwner } from '@ember/application';
 
@@ -101,6 +122,16 @@ export default class CartContentsComponent extends Component {
   get cart() {
     return getOwner(this).lookup('service:shopping-cart');
   }
+
+  <template>
+    <ul>
+      {{#each this.cart.items as |item|}}
+        <li>
+          {{item.name}}
+        </li>
+      {{/each}}
+    </ul>
+  </template>
 }
 ```
 
@@ -110,33 +141,30 @@ Once loaded, a service will persist until the application exits.
 
 Below we add a remove action to the `cart-contents` component.
 
-```javascript {data-filename=app/components/cart-contents.js}
+```gjs {data-filename=app/components/cart-contents.gjs}
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
-import { action } from '@ember/object';
+import { on } from '@ember/modifier';
+import { fn } from '@ember/helper';
 
 export default class CartContentsComponent extends Component {
   @service('shopping-cart') cart;
 
-  @action
-  remove(item) {
+  remove = (item) => {
     this.cart.remove(item);
-  }
+  };
+
+  <template>
+    <ul>
+      {{#each this.cart.items as |item|}}
+        <li>
+          {{item.name}}
+          <button type="button" {{on "click" (fn this.remove item)}}>Remove</button>
+        </li>
+      {{/each}}
+    </ul>
+  </template>
 }
-```
-
-Once injected into a component, a service can also be used in the template.
-Note `cart` being used below to get data from the cart.
-
-```handlebars {data-filename=app/components/cart-contents.hbs}
-<ul>
-  {{#each this.cart.items as |item|}}
-    <li>
-      {{item.name}}
-      <button type="button" {{on "click" (fn this.remove item)}}>Remove</button>
-    </li>
-  {{/each}}
-</ul>
 ```
 
 <!-- eof - needed for pages that end in a code block  -->
