@@ -104,10 +104,9 @@ Tracked properties can be updated like any other property, using standard
 JavaScript syntax. For instance, we could update a tracked property via an
 action, as in this example component.
 
-``` gjs { data-filename=app/components/hello.gjs data-diff="+3,+18,+19,+20,+21,+25,+26,+27,+28,+29,+30" }
+``` gjs { data-filename=app/components/hello.gjs data-diff="+17,+18,+19,+20,+24,+25,+26,+27,+28,+29" }
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
 
 export default class HelloComponent extends Component {
   @tracked language = 'en';
@@ -148,10 +147,9 @@ Another way that a tracked property could be updated is asynchronously, if
 you're sending a request to the server. For instance, maybe we would want to
 load the user's preferred language:
 
-``` gjs { data-filename=app/components/hello.gjs data-diff="+6,+7,+8,+9,+10,+11,+12,+13,+14,+15" }
+``` gjs { data-filename=app/components/hello.gjs data-diff="+5,+6,+7,+8,+9,+10,+11,+12,+13,+14" }
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
 
 export default class HelloComponent extends Component {
   constructor() {
@@ -202,10 +200,9 @@ app.
 So far we've only shown tracked properties working through getters, but tracking
 works through _methods_ or _functions_ as well:
 
-``` gjs { data-diff="+17,+18,+19,+20,+21,+24,+25,+26,+27" }
+``` gjs { data-diff="+16,+17,+18,+19,+20,+23,+24,+25,+26" }
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
 
 export default class HelloComponent extends Component {
   constructor() {
@@ -294,8 +291,6 @@ export default class ApplicationRoute extends Route {
 
 ```gjs {data-filename=app/templates/application.gjs}
 import Component from '@glimmer/component';
-import { on } from '@ember/modifier';
-import { fn } from '@ember/helper';
 
 export default class ApplicationRouteComponent extends Component {
   updateName = (title, name) => {

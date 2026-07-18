@@ -181,13 +181,11 @@ The Ember built-in helpers, modifiers, and components are available for import f
 // Built-in helpers
 import { array } from '@ember/helper';
 import { concat } from '@ember/helper';
-import { fn } from '@ember/helper';
 import { get } from '@ember/helper';
 import { hash } from '@ember/helper';
 import { uniqueId } from '@ember/helper';
 
 // Built-in modifiers
-import { on } from '@ember/modifier';
 
 // Built-in components
 import { Input } from '@ember/component';

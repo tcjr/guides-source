@@ -85,7 +85,6 @@ There, we defined component which accepted a `srcUrl` argument and used a `play-
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import playWhen from 'my-app/modifiers/play-when';
-import { on } from '@ember/modifier';
 
 export default class AudioPlayer extends Component {
   @tracked isPlaying = false;
@@ -115,11 +114,10 @@ What elements do we need to build a signature for this component?
 
 We can define a signature with those `Args` on it and apply it to the component definition by adding it as a type parameter to the `extends Component` clause:
 
-```gts { data-filename="app/components/audio-player.gts" data-diff="+6,+7,+8,+9,+10,+11,-13,+14" }
+```gts { data-filename="app/components/audio-player.gts" data-diff="+5,+6,+7,+8,+9,+10,-12,+13" }
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import playWhen from 'my-app/modifiers/play-when';
-import { on } from '@ember/modifier';
 
 interface AudioPlayerSignature {
   Args: {
@@ -151,11 +149,10 @@ export default class AudioPlayer extends Component<AudioPlayerSignature> {
 
 Now, let's expand on this example to give callers the ability to apply attributes to the audio element with an `Element`:
 
-```gts { data-filename="app/components/audio-player.gts" data-diff="+11,-26,+27" }
+```gts { data-filename="app/components/audio-player.gts" data-diff="+10,-25,+26" }
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import playWhen from 'my-app/modifiers/play-when';
-import { on } from '@ember/modifier';
 
 interface AudioPlayerSignature {
   Args: {
@@ -188,11 +185,10 @@ export default class AudioPlayer extends Component<AudioPlayerSignature> {
 
 We can also let the user provide a fallback for the case where the audio element does not load, using the default block. We have to name the default block explicitly in the new `Blocks` type we add to our signature. Since blocks yield out a list of items, we can use a [tuple type][tuple] to represent them. In this case, we will just yield out the same URL we loaded, to let the caller use it for the fallback.
 
-```gts { data-filename="app/components/audio-player.gts" data-diff="+11,+12,+13,-29,+30,+31,+32" }
+```gts { data-filename="app/components/audio-player.gts" data-diff="+10,+11,+12,-28,+29,+30,+31" }
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import playWhen from 'my-app/modifiers/play-when';
-import { on } from '@ember/modifier';
 
 interface AudioPlayerSignature {
   Args: {
@@ -234,11 +230,10 @@ Let's go one step further and switch to supporting for two [named blocks][named-
 
 To represent this, we will update the `default` block to be named `fallback` instead and add the `title` block. We do not yield anything to the `title` block, so we use an empty tuple, `[]`, to represent it.
 
-```gts {data-filename="app/components/audio-player.gts" data-diff="-12,+13,+14,-31,-32,-33,+34,+35,+36,+37,+38,+39,+40,+41" }
+```gts {data-filename="app/components/audio-player.gts" data-diff="-11,+12,+13,-30,-31,-32,+33,+34,+35,+36,+37,+38,+39,+40" }
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import playWhen from 'my-app/modifiers/play-when';
-import { on } from '@ember/modifier';
 
 interface AudioPlayerSignature {
   Args: {
@@ -291,7 +286,6 @@ When working in JavaScript, we can provide the exact same information using JSDo
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import playWhen from 'my-app/modifiers/play-when';
-import { on } from '@ember/modifier';
 
 /**
  * @typedef AudioPlayerSignature

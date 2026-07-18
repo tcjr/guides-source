@@ -184,7 +184,6 @@ If you want to add an event handler to an HTML element, you can use the `{{on` e
 
 ```gjs {data-filename="app/components/counter.gjs"}
 import Component from "@glimmer/component";
-import { on } from '@ember/modifier';
 import { tracked } from '@glimmer/tracking';
 
 export default class CounterComponent extends Component {
@@ -359,9 +358,8 @@ Now that we see _why_ we want to use a modifier for our audio component, let's w
 
 First, we add actions to handle the `click` events for the `Play` and `Pause` buttons:
 
-```gjs {data-filename="app/components/audio-player.gjs" data-diff="+2,+6,+7,+8,+10,+11,+12,-17,+18,-19,+20"}
+```gjs {data-filename="app/components/audio-player.gjs" data-diff="+5,+6,+7,+9,+10,+11,-16,+17,-18,+19"}
 import Component from "@glimmer/component";
-import { on } from '@ember/modifier';
 
 export default class AudioPlayerComponent extends Component {
 
@@ -386,9 +384,8 @@ export default class AudioPlayerComponent extends Component {
 
 Recall that our modifier will manage the DOM (i.e. calling the audio element's `play` or `pause` method). All the component needs to do is to track whether the audio is playing:
 
-```gjs {data-filename="app/components/audio-player.gjs" data-diff="+3,+6,-9,+10,-14,+15"}
+```gjs {data-filename="app/components/audio-player.gjs" data-diff="+2,+5,-8,+9,-13,+14"}
 import Component from "@glimmer/component";
-import { on } from '@ember/modifier';
 import { tracked } from '@glimmer/tracking';
 
 export default class AudioPlayerComponent extends Component {
@@ -435,9 +432,8 @@ export default modifier((element, [isPlaying]) => {
 
 Last but not least, we attach the modifier to the `audio` element:
 
-```gjs {data-filename="app/components/audio-player.gjs" data-diff="+4,-18,+19"}
+```gjs {data-filename="app/components/audio-player.gjs" data-diff="+3,-17,+18"}
 import Component from "@glimmer/component";
-import { on } from '@ember/modifier';
 import { tracked } from '@glimmer/tracking';
 import playWhen from 'my-app/modifiers/play-when';
 
@@ -537,7 +533,6 @@ We could then use the `modal` component this way:
 ```gjs {data-filename="app/components/sidebar.gjs"}
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
-import { on } from '@ember/modifier';
 import Modal from 'my-app/components/modal';
 
 export default class SidebarComponent extends Component {

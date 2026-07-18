@@ -75,10 +75,9 @@ are an Ember syntax that allow us to attach logic to a tag.
 
 To make those event handlers do something, we will need to define those methods in the component class. These are sometime referred to as actions.
 
-```gjs {data-filename="app/components/counter.gjs" data-diff="+3,+8,+9,+10,+11,+12,+13,+14,-19,+20,-21,+22"}
+```gjs {data-filename="app/components/counter.gjs" data-diff="+7,+8,+9,+10,+11,+12,+13,-18,+19,-20,+21"}
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
 
 export default class CounterComponent extends Component {
   @tracked count = 0;
@@ -118,11 +117,9 @@ Then, we'll update the template to turn the click handler into a function that
 passes an amount (for example, 1 and -1) in as an argument, using the `fn`
 helper.
 
-```gjs {data-filename="app/components/counter.gjs" data-diff="+4,-9,-10,-11,-12,-13,-14,-15,+17,+18,+19,-24,+25,-26,+27"}
+```gjs {data-filename="app/components/counter.gjs" data-diff="-7,-8,-9,-10,-11,-12,-13,+15,+16,+17,-22,+23,-24,+25"}
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
-import { fn } from '@ember/helper';
 
 export default class CounterComponent extends Component {
   @tracked count = 0;
@@ -186,11 +183,9 @@ and an action called `double` that doubles the `multiple`.
 Then, we'll update the template to call the `double` action. We'll also add
 `this.multiple` to our output to help us confirm that our button is working.
 
-```gjs {data-filename="app/components/counter.gjs" data-diff="+8,+14,+15,+16,+20,+25"}
+```gjs {data-filename="app/components/counter.gjs" data-diff="+6,+12,+13,+14,+18,+23"}
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
-import { fn } from '@ember/helper';
 
 export default class CounterComponent extends Component {
   @tracked count = 0;
@@ -225,11 +220,9 @@ compute new values from those properties.
 
 We can also update the template to use the `total` property.
 
-```gjs {data-filename="app/components/counter.gjs" data-diff="+10,+11,+12,+25"}
+```gjs {data-filename="app/components/counter.gjs" data-diff="+8,+9,+10,+23"}
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
-import { fn } from '@ember/helper';
 
 export default class CounterComponent extends Component {
   @tracked count = 0;
@@ -298,7 +291,6 @@ let's allow it to be passed in.  We'll start by creating a new component called 
 ```gjs {data-filename="app/components/double-it.gjs"}
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
 import Counter from './counter.gjs';
 
 export default class DoubleItComponent extends Component {
@@ -407,7 +399,6 @@ function) with the new value for `multiple`, and the parent component, `DoubleIt
 ```gjs {data-filename="app/components/double-it.gjs"}
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
 import Counter from './counter.gjs';
 
 export default class DoubleItComponent extends Component {
